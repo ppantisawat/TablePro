@@ -739,15 +739,12 @@ private struct InspectorRootView: View {
     }
 
     private var emptyStateView: some View {
-        VStack(spacing: 8) {
-            Image(systemName: state.totalRowCount == 0 ? "doc" : "line.3.horizontal.decrease.circle")
-                .font(.system(size: 36))
-                .foregroundStyle(.tertiary)
-            Text(state.totalRowCount == 0
+        ContentUnavailableView(
+            state.totalRowCount == 0
                 ? String(localized: "No rows")
-                : String(localized: "No matching rows"))
-                .foregroundStyle(.secondary)
-        }
+                : String(localized: "No matching rows"),
+            systemImage: state.totalRowCount == 0 ? "doc" : "line.3.horizontal.decrease.circle"
+        )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(nsColor: .textBackgroundColor))
     }

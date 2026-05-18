@@ -62,6 +62,10 @@ final class WelcomeViewModel {
 
     var showImportFilePanel = false
     var importResultCount: Int?
+    /// Set when a sheet (import file / import-from-app) finishes work and is
+    /// about to dismiss. Flushed in the sheet's `onDismiss` so the result
+    /// alert appears after the sheet animation completes, no sleep needed.
+    var pendingImportResultCount: Int?
 
     var expandedGroupIds: Set<UUID> = {
         let strings = UserDefaults.standard.stringArray(forKey: "com.TablePro.expandedGroupIds") ?? []

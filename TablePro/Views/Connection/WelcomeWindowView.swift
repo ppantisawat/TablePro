@@ -74,7 +74,12 @@ struct WelcomeWindowView: View {
                 Text("Are you sure you want to delete the group \"\(group.name)\"? Connections in this group will be moved to the top level.")
             }
         }
-        .sheet(item: $vm.activeSheet) { sheet in
+        .sheet(item: $vm.activeSheet, onDismiss: {
+            if let count = vm.pendingImportResultCount {
+                vm.importResultCount = count
+                vm.pendingImportResultCount = nil
+            }
+        }) { sheet in
             switch sheet {
             case .newGroup(let parentId):
                 CreateGroupSheet(parentId: parentId) { name, color, pid in
@@ -94,19 +99,15 @@ struct WelcomeWindowView: View {
                 LicenseActivationSheet()
             case .importFile(let url):
                 ConnectionImportSheet(fileURL: url) { count in
-                    Task { @MainActor in
-                        try? await Task.sleep(for: .milliseconds(300))
-                        vm.showImportResult(count: count)
-                    }
+                    vm.pendingImportResultCount = count
+                    vm.activeSheet = nil
                 }
             case .exportConnections(let conns):
                 ConnectionExportOptionsSheet(connections: conns)
             case .importFromApp:
                 ImportFromAppSheet { count in
-                    Task { @MainActor in
-                        try? await Task.sleep(for: .milliseconds(300))
-                        vm.showImportResult(count: count)
-                    }
+                    vm.pendingImportResultCount = count
+                    vm.activeSheet = nil
                 }
             case .deeplinkImport(let exportable):
                 DeeplinkImportSheet(connection: exportable) {
