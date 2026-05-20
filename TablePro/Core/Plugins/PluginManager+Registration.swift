@@ -470,7 +470,6 @@ extension PluginManager {
         }) {
             if !existingEntry.isEnabled {
                 setEnabled(true, pluginId: existingEntry.id)
-                await loadPendingPluginsAsync()
             }
             if driverPlugins[pluginTypeId] != nil {
                 Self.logger.info("Re-enabled existing plugin '\(existingEntry.name)' for '\(databaseType.rawValue)'")
@@ -479,7 +478,7 @@ extension PluginManager {
             Self.logger.warning("Plugin '\(existingEntry.id)' exists but driver not registered, reinstalling")
             if existingEntry.source == .userInstalled {
                 do {
-                    try uninstallPlugin(id: existingEntry.id)
+                    try await uninstallPlugin(id: existingEntry.id)
                 } catch {
                     Self.logger.warning("Failed to uninstall plugin '\(existingEntry.id)' before reinstall: \(error.localizedDescription)")
                 }
