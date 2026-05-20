@@ -3,6 +3,85 @@
     <channel>
         <title>TablePro</title>
         <item>
+            <title>0.43.1</title>
+            <pubDate>Wed, 20 May 2026 16:44:05 +0000</pubDate>
+            <sparkle:version>87</sparkle:version>
+            <sparkle:shortVersionString>0.43.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<h3>Added</h3>
+<ul>
+<li>Right-click a column header to copy all its loaded values (#1325)</li>
+<li>The row "Copy as" submenu adds CSV, CSV with Headers, Markdown table, and an IN clause for `WHERE id IN (...)` lookups (#1325)</li>
+<li>A plugin update that arrives while a connection is open installs when you close the connection or quit, instead of being blocked</li>
+<li>Settings > Plugins shows a badge with the count of rejected plugins and available updates</li>
+<li>Connections whose driver plugin failed to load show a yellow warning triangle in the welcome list</li>
+<li>A rejected driver plugin shows an inline banner with an Update Plugin button in the connection form</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>A plugin that fails to load no longer interrupts launch with an alert. The app posts a notification and lists rejected plugins in Settings > Plugins with Update Now and Remove buttons (#1322)</li>
+<li>Rejected plugins auto-update from the registry in the background, retrying with backoff until they load (#1322)</li>
+<li>The app installs the plugin binary built for its own version, even when the registry holds binaries for other versions (#1322)</li>
+<li>Double-click or press Return on a read-only result cell to open a selectable text viewer. JSON columns open a viewer popover and BLOB columns open the hex viewer (#1336)</li>
+<li>`Cmd+C` copies the focused cell when one row is selected and a cell has focus; otherwise it copies the selected row(s) as TSV. `Cmd+Shift+C` always copies row(s) as TSV. "Copy with Headers" stays in the Edit and row context menus (#1332)</li>
+<li>`Cmd+F` toggles the filter panel on a table and opens Find in the SQL editor. The old `Cmd+Shift+F` filter shortcut is removed</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>Fixes the recurring "Plugin was built with PluginKit version N, but version M is required" error after app updates. Rejected plugins now recover without manual steps (#1322, #1237, #923, #912, #443)</li>
+<li>DuckDB spatial `GEOMETRY` columns show as WKT instead of NULL (#1324)</li>
+<li>DuckDB `HUGEINT` and `UHUGEINT` keep full precision and no longer crash on negative values</li>
+<li>DuckDB streaming results respect the row cap and show `TIMESTAMPTZ`, `TIMETZ`, and `GEOMETRY` instead of NULL</li>
+<li>DuckDB schema reads handle apostrophes and concurrent schema switches</li>
+<li>DuckDB ENUMs in schemas other than `main` resolve correctly</li>
+<li>DuckDB `DATE` and `TIMESTAMP` BC years show a leading minus</li>
+<li>`.db`, `.db3`, `.s3db`, `.sl3`, and `.sqlitedb` files open from Finder (#1327)</li>
+<li>DynamoDB SSO connections work with `sso-session` profiles right after `aws sso login`, with no extra AWS CLI command (#1333)</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/TableProApp/TablePro/releases/download/v0.43.1/TablePro-0.43.1-arm64.zip" length="21509655" type="application/octet-stream" sparkle:edSignature="2X/b17C5ockObQxRC+iomg4s56rTZtroSbFwMBCdpJAcsP4bLukDrLQknPxtxXf8mtIrgFaZEPrCQCPCua2QDA=="/>
+        </item>
+        <item>
+            <title>0.43.1</title>
+            <pubDate>Wed, 20 May 2026 16:44:06 +0000</pubDate>
+            <sparkle:version>87</sparkle:version>
+            <sparkle:shortVersionString>0.43.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<h3>Added</h3>
+<ul>
+<li>Right-click a column header to copy all its loaded values (#1325)</li>
+<li>The row "Copy as" submenu adds CSV, CSV with Headers, Markdown table, and an IN clause for `WHERE id IN (...)` lookups (#1325)</li>
+<li>A plugin update that arrives while a connection is open installs when you close the connection or quit, instead of being blocked</li>
+<li>Settings > Plugins shows a badge with the count of rejected plugins and available updates</li>
+<li>Connections whose driver plugin failed to load show a yellow warning triangle in the welcome list</li>
+<li>A rejected driver plugin shows an inline banner with an Update Plugin button in the connection form</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>A plugin that fails to load no longer interrupts launch with an alert. The app posts a notification and lists rejected plugins in Settings > Plugins with Update Now and Remove buttons (#1322)</li>
+<li>Rejected plugins auto-update from the registry in the background, retrying with backoff until they load (#1322)</li>
+<li>The app installs the plugin binary built for its own version, even when the registry holds binaries for other versions (#1322)</li>
+<li>Double-click or press Return on a read-only result cell to open a selectable text viewer. JSON columns open a viewer popover and BLOB columns open the hex viewer (#1336)</li>
+<li>`Cmd+C` copies the focused cell when one row is selected and a cell has focus; otherwise it copies the selected row(s) as TSV. `Cmd+Shift+C` always copies row(s) as TSV. "Copy with Headers" stays in the Edit and row context menus (#1332)</li>
+<li>`Cmd+F` toggles the filter panel on a table and opens Find in the SQL editor. The old `Cmd+Shift+F` filter shortcut is removed</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>Fixes the recurring "Plugin was built with PluginKit version N, but version M is required" error after app updates. Rejected plugins now recover without manual steps (#1322, #1237, #923, #912, #443)</li>
+<li>DuckDB spatial `GEOMETRY` columns show as WKT instead of NULL (#1324)</li>
+<li>DuckDB `HUGEINT` and `UHUGEINT` keep full precision and no longer crash on negative values</li>
+<li>DuckDB streaming results respect the row cap and show `TIMESTAMPTZ`, `TIMETZ`, and `GEOMETRY` instead of NULL</li>
+<li>DuckDB schema reads handle apostrophes and concurrent schema switches</li>
+<li>DuckDB ENUMs in schemas other than `main` resolve correctly</li>
+<li>DuckDB `DATE` and `TIMESTAMP` BC years show a leading minus</li>
+<li>`.db`, `.db3`, `.s3db`, `.sl3`, and `.sqlitedb` files open from Finder (#1327)</li>
+<li>DynamoDB SSO connections work with `sso-session` profiles right after `aws sso login`, with no extra AWS CLI command (#1333)</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/TableProApp/TablePro/releases/download/v0.43.1/TablePro-0.43.1-x86_64.zip" length="22790983" type="application/octet-stream" sparkle:edSignature="6l99P9FnTLZK1no/cjLSHTnQNUbaZtwIh5+aUl/cUT3YNigvfpfvveh44htTUICqepTA749XD8cZWEgysRPVDw=="/>
+        </item>
+        <item>
             <title>0.43.0</title>
             <pubDate>Mon, 18 May 2026 12:08:28 +0000</pubDate>
             <sparkle:version>86</sparkle:version>
