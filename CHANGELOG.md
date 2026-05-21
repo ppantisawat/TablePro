@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Opening a MongoDB, Oracle, Cassandra, etcd, Cloudflare D1, DynamoDB, BigQuery, or LibSQL connection no longer crashes the app when the installed plugin is older than the app; outdated plugins are now rejected and updated automatically (#1371)
 - Safe mode no longer turns off when you open another table; it stays set for the whole connection until you change it (#1351)
 - Reassigning the Execute Query, Execute All Statements, and Cancel Query shortcuts now takes effect, and the Query menu shows the new keys (#1357)
 - Custom shortcuts now require a modifier key, so a plain key like Space is no longer accepted and then silently ignored (#1357)
