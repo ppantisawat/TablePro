@@ -37,7 +37,8 @@ struct ConnectionStoragePersistenceTests {
         self.storage = ConnectionStorage(
             fileURL: fileURL,
             userDefaults: defaults,
-            syncTracker: syncTracker
+            syncTracker: syncTracker,
+            keychain: InMemoryKeychain()
         )
     }
 

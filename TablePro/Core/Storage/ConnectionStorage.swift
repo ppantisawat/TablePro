@@ -28,14 +28,14 @@ final class ConnectionStorage {
 
     private let fileURL: URL
 
-    private let keychain: KeychainHelper
+    private let keychain: any KeychainStoring
 
     init(
         fileURL: URL = ConnectionStorage.defaultFileURL(),
         userDefaults: UserDefaults = .standard,
         syncTracker: SyncChangeTracker = .shared,
         appSettings: @escaping @autoclosure () -> AppSettingsStorage = .shared,
-        keychain: KeychainHelper = .shared
+        keychain: any KeychainStoring = KeychainHelper.shared
     ) {
         self.fileURL = fileURL
         self.defaults = userDefaults

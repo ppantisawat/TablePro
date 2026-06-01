@@ -35,7 +35,12 @@ struct SafeModeMigrationTests {
         self.defaults = defaults
         let metadata = SyncMetadataStorage(userDefaults: syncDefaults)
         self.tracker = SyncChangeTracker(metadataStorage: metadata)
-        self.storage = ConnectionStorage(fileURL: fileURL, userDefaults: defaults, syncTracker: tracker)
+        self.storage = ConnectionStorage(
+            fileURL: fileURL,
+            userDefaults: defaults,
+            syncTracker: tracker,
+            keychain: InMemoryKeychain()
+        )
     }
 
     // MARK: - Round-Trip Through ConnectionStorage API
