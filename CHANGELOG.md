@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- SQL Server: connections work when the login can only reach its own database, such as an Azure SQL contained user. The database is now sent during login. Previously it was switched afterward, which the server rejected with a "Login failed" error.
 - Custom Copy and Cut shortcuts now take effect in the SQL editor.
 - The Delete shortcut in the data grid now follows a custom binding.
 - Find Next (Cmd+G) and Find Previous (Cmd+Shift+G) now work in the editor.
