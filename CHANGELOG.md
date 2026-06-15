@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Shift+Arrow in the data grid now starts and extends a cell selection from the focused cell, instead of doing nothing until a range already existed. Cmd+Shift+Arrow extends to the row or column edge.
 - Delete key now respects cell-range selection in the data grid, removing all rows covered by the selection instead of ignoring it.
 - Right-clicking inside a multi-row or cell-range selection no longer collapses the selection before the context menu appears.
 - Oracle connections no longer crash the app during connect. A short or unexpected handshake packet from the server (such as session-setup metadata or an error) now surfaces the error or continues instead of trapping. (#1683)
