@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The table structure view has a Triggers tab for MySQL, MariaDB, PostgreSQL, and SQLite. It lists each trigger with its timing and event and shows the full definition in a read-only syntax-highlighted viewer. (#1695)
 - Traditional Chinese (繁體中文) language in Settings > General with full UI translation
 
+### Fixed
+
+- DuckDB VARIANT columns now show their value as text instead of an empty cell.
+
 ## [0.51.1] - 2026-06-16
 
 ### Added
