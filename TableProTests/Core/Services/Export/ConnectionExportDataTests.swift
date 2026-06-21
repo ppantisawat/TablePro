@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import TableProImport
 import Testing
 
 @testable import TablePro
@@ -11,7 +12,6 @@ import Testing
 @Suite("Connection Export Data")
 @MainActor
 struct ConnectionExportDataTests {
-
     private func makeConnection(name: String = "Dev") -> DatabaseConnection {
         DatabaseConnection(
             name: name, host: "db.example.com", port: 5_432,
@@ -24,7 +24,7 @@ struct ConnectionExportDataTests {
         let connections = [makeConnection(name: "Primary"), makeConnection(name: "Replica")]
         let data = try ConnectionExportService.exportData(connections)
 
-        let envelope = try ConnectionExportService.decodeData(data)
+        let envelope = try ConnectionImportDecoder.decodeData(data)
         #expect(envelope.connections.count == 2)
         #expect(envelope.connections.map(\.name) == ["Primary", "Replica"])
         #expect(envelope.credentials == nil)
@@ -36,7 +36,7 @@ struct ConnectionExportDataTests {
         let data = try ConnectionExportService.exportEncryptedData(connections, passphrase: "correct horse")
 
         #expect(ConnectionExportCrypto.isEncrypted(data))
-        let envelope = try ConnectionExportService.decodeEncryptedData(data, passphrase: "correct horse")
+        let envelope = try ConnectionImportDecoder.decodeEncryptedData(data, passphrase: "correct horse")
         #expect(envelope.connections.map(\.name) == ["Secret"])
     }
 
@@ -45,14 +45,13 @@ struct ConnectionExportDataTests {
         let data = try ConnectionExportService.exportEncryptedData([makeConnection()], passphrase: "right-one")
 
         #expect(throws: (any Error).self) {
-            try ConnectionExportService.decodeEncryptedData(data, passphrase: "wrong-one")
+            try ConnectionImportDecoder.decodeEncryptedData(data, passphrase: "wrong-one")
         }
     }
 }
 
 @Suite("Connection Export Passphrase State")
 struct ConnectionExportPassphraseStateTests {
-
     @Test("empty passphrase is not exportable")
     func testEmpty() {
         let state = ConnectionExportPassphraseState.evaluate(passphrase: "", confirmation: "")
