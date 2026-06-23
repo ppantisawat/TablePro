@@ -133,7 +133,8 @@ public enum MSSQLSchemaQueries {
                 fk.name AS constraint_name,
                 cp.name AS column_name,
                 tr.name AS ref_table,
-                cr.name AS ref_column
+                cr.name AS ref_column,
+                sr.name AS ref_schema
             FROM sys.foreign_keys fk
             JOIN sys.foreign_key_columns fkc ON fk.object_id = fkc.constraint_object_id
             JOIN sys.tables tp ON fkc.parent_object_id = tp.object_id
@@ -141,6 +142,7 @@ public enum MSSQLSchemaQueries {
             JOIN sys.columns cp
                 ON fkc.parent_object_id = cp.object_id AND fkc.parent_column_id = cp.column_id
             JOIN sys.tables tr ON fkc.referenced_object_id = tr.object_id
+            JOIN sys.schemas sr ON tr.schema_id = sr.schema_id
             JOIN sys.columns cr
                 ON fkc.referenced_object_id = cr.object_id AND fkc.referenced_column_id = cr.column_id
             WHERE tp.name = '\(t)' AND s.name = '\(s)'
@@ -233,12 +235,20 @@ public struct MSSQLForeignKeyRow: Sendable, Equatable {
     public let columnName: String
     public let referencedTable: String
     public let referencedColumn: String
+    public let referencedSchema: String?
 
-    public init(constraintName: String, columnName: String, referencedTable: String, referencedColumn: String) {
+    public init(
+        constraintName: String,
+        columnName: String,
+        referencedTable: String,
+        referencedColumn: String,
+        referencedSchema: String? = nil
+    ) {
         self.constraintName = constraintName
         self.columnName = columnName
         self.referencedTable = referencedTable
         self.referencedColumn = referencedColumn
+        self.referencedSchema = referencedSchema
     }
 }
 
@@ -286,7 +296,8 @@ public extension MSSQLSchemaQueries {
             constraintName: name,
             columnName: column,
             referencedTable: refTable,
-            referencedColumn: refColumn
+            referencedColumn: refColumn,
+            referencedSchema: row[safe: 4] ?? nil
         )
     }
 }
