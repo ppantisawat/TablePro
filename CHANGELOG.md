@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Per-tab database picker in the query editor toolbar. Each SQL tab can target its own database without clearing other tabs.
+- Single-clicking a table in the sidebar tree opens it in the current tab; double-clicking opens it in a new tab.
+
+### Changed
+
+- Switching the active database keeps existing tabs open instead of closing them.
+- The toolbar, quick switcher, and query editor database pickers follow the sidebar database filter.
+- Switching table tabs is faster: filter settings persist off the main thread, and only the active database's table list refreshes.
+
 ### Fixed
 
 - SSH tunnels no longer pin a CPU core after the connection drops. A dropped tunnel is now detected and torn down instead of spinning in its relay loop. (#1769)
