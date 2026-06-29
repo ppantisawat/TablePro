@@ -179,6 +179,11 @@ nonisolated final class FreeTDSConnection: @unchecked Sendable {
         lock.lock()
         _isConnected = true
         lock.unlock()
+
+        // FreeTDS default TEXTSIZE is 2048. Set to 2 GB so nvarchar(max)/text columns return in full.
+        _ = dbcmd(proc, "SET TEXTSIZE 2147483647")
+        _ = dbsqlexec(proc)
+        _ = dbresults(proc)
     }
 
     func switchDatabase(_ database: String) async throws {
